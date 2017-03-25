@@ -58,6 +58,8 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
         svScroll = findViewById(R.id.svScroll);
         pbProgress = findViewById(R.id.pbProgress);
 
+        mostrarPreferencia();
+
     }
 
     @Override
@@ -121,7 +123,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
 
 
-    public boolean mostrarPreferencia(String strUsuarioA, String strContraseniaA){
+    public boolean mostrarInicio(String strUsuarioA, String strContraseniaA){
 
 
         SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
@@ -233,7 +235,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_longAnimTime);
 
             svScroll.setVisibility(show ? View.GONE : View.VISIBLE);
             svScroll.animate().setDuration(shortAnimTime).alpha(
@@ -279,11 +281,11 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(6000);
             } catch (InterruptedException e) {
                 return false;
             }
-            blRes = mostrarPreferencia(strUsuario, strContrasenia);
+            blRes = mostrarInicio(strUsuario, strContrasenia);
             /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -317,7 +319,8 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
                 Snackbar.make(etContrasenia, R.string.aa_preguntaRegistrar, Snackbar.LENGTH_INDEFINITE)
                         .setAction(android.R.string.ok, new View.OnClickListener() {
                             public void onClick(View v) {
-                                registrarUsuario(v);
+                                //registrarUsuario(v);
+                                crearCuenta(v);
                             }
                         })
                         .show();
@@ -332,5 +335,23 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
             showProgress(false);
         }
     }
+
+    public void mostrarPreferencia(){
+        SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
+        String strUsuario = spAutentica.getString("usuario", "No existe usuario");
+        String strContrasenia = spAutentica.getString("contrasenia", "No existe contrasenia");
+        String strToken = spAutentica.getString("token", "No existe token");
+
+        actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
+        etContrasenia = (EditText) findViewById(R.id.etContrasenia);
+
+        if (strUsuario != "No existe usuario") {
+            actvCorreo.setText(strUsuario);
+            etContrasenia.setText(strContrasenia);
+        }
+
+        String strValores = "\nUsuario: " +strUsuario+ "\nContrasenia: " + strContrasenia;
+    }
+
 }
 
