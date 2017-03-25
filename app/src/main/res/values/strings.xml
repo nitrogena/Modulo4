@@ -17,7 +17,11 @@
     <string name="ad_tvCorreo">Correo electrónico</string>
     <string name="ad_tvTelefono_numero">55555555</string>
     <string name="ad_tvCorreo_valor">nidia@inventado.com</string>
-
+    <string-array name="genero_array">
+        <item>Mujer</item>
+        <item>Hombre</item>
+    </string-array>
+    <string name="ac_spnGenero">Género</string>
     <string name="registrar">Registrar</string>
 
     <string name="aa_contrasenia">Contraseña</string>
