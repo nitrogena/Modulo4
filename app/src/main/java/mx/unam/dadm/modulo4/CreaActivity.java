@@ -116,10 +116,41 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void  modificarUsuario(){
+        try{
+
+            //SE DEBEN MODIFICAR LOS DATOS DEL USUARIO
+            actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
+            etContrasenia = (EditText) findViewById(R.id.etContrasenia);
+
+
+            String strUsuario = actvCorreo.getText().toString();
+            String strContrasenia = etContrasenia.getText().toString();
+
+            SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = spAutentica.edit();
+
+            editor.putString("usuario", strUsuario);
+            editor.putString("contrasenia", strContrasenia);
+            editor.commit();
+
+            Toast.makeText(this, R.string.ra_mensajeModificacion, Toast.LENGTH_LONG).show();
+
+            //SE IAA A SESION
+            Intent intent = new Intent(CreaActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, R.string.ra_mensajeE, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
     public boolean mostrarPreferencia(String strUsuarioA, String strContraseniaA){
 
+//AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
 
         SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
         String strUsuario = spAutentica.getString("usuario", "No existe usuario");
@@ -128,25 +159,31 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
         //TextView tvDesc = (TextView) findViewById(R.id.ar_tvDesc);
         if (strUsuarioA.equals(strUsuario)){
-            if (strContraseniaA.equals(strContrasenia)){
+            /*if (strContraseniaA.equals(strContrasenia)){
 
                 if (strToken.equals("No existe token")){
-                    return true;
+
                 }
                 else{
 
-                    //deve ir a inicio
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("token", strToken);
-                    startActivity(intent);
+
                 }
-            }
+            }*/
+            return false;
         }
+        else {
+            //deve ir a inicio
+            /*Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", strToken);
+            startActivity(intent);
+        */
 
-        String strValores = "\nUsuario: " +strUsuario+ "\nContrasenia: " + strContrasenia;
 
-        //tvDesc.setText(strValores);
-        return false;
+            String strValores = "\nUsuario: " + strUsuario + "\nContrasenia: " + strContrasenia;
+
+            //tvDesc.setText(strValores);
+            return true;
+        }
     }
 
     private void autenticar(View view) {
@@ -283,8 +320,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             } catch (InterruptedException e) {
                 return false;
             }
-            blRes = true;
-            //mostrarPreferencia(strUsuario, strContrasenia);
+            blRes = mostrarPreferencia(strUsuario, strContrasenia);
             /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -313,17 +349,17 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
                 //startActivity(intent);
             }
             else {
-                /*
-                Snackbar.make(etContrasenia, R.string.aa_preguntaRegistrar, Snackbar.LENGTH_INDEFINITE)
+
+                Snackbar.make(etContrasenia, R.string.aa_preguntaModificar, Snackbar.LENGTH_INDEFINITE)
                         .setAction(android.R.string.ok, new View.OnClickListener() {
                             public void onClick(View v) {
-                                registrarUsuario(v);
+                                modificarUsuario();
                             }
                         })
                         .show();
                 //etContrasenia.setError(getString(R.string.aa_msgError));
                 //etContrasenia.requestFocus();
-                */
+
             }
         }
 

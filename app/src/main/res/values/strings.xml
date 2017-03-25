@@ -52,4 +52,6 @@
     <string name="ra_mensajeE">Lo sentimos, por el momento no se  pueden registrar sus datos.</string>
     <string name="ra_mensaje2">Se ha creado la preferencia</string>
     <string name="ra_mensajeRegistro">Se registró un nuevo usuario</string>
+    <string name="aa_preguntaModificar">El usuario ya existe. ¿Quiere sobreescribir los datos?</string>
+    <string name="ra_mensajeModificacion">Los datos se sobreescribieron.</string>
 </resources>
