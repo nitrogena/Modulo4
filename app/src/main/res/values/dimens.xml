@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="ad_textSize_nombre">30sp</dimen>
+    <dimen name="ad_marginTop">10dp</dimen>
+    <dimen name="ad_textSize_otros">25sp</dimen>
+    <dimen name="actionBar">4dp</dimen>
+    <dimen name="ar_titulo">24dp</dimen>
+    <dimen name="ar_texto">20dp</dimen>
+    <dimen name="aa_layout_marginBottom">8dp</dimen>
+    <dimen name="aa_layout_marginTop">16dp</dimen>
+</resources>

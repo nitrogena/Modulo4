@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Modulo4</string>
+    <string name="am_tvTitulo">Módulo 4 </string>
+    <string name="am_tvSubtitulo">Bienvenido</string>
+    <string name="am_btnConsultar">Comenzar</string>
+
+    <string name="am_onResume">onResume</string>
+    <string name="am_onStart">onStart</string>
+    <string name="am_onStop">onStop</string>
+    <string name="am_onPause">onPause</string>
+    <string name="am_onRestart">onRestart</string>
+    <string name="am_onDestroy">onDestroy</string>
+    <string name="am_onCreate">onCreate</string>
+
+    <string name="ad_tvNombre">Nombre</string>
+    <string name="ad_tvTelefono">Teléfono</string>
+    <string name="ad_tvCorreo">Correo electrónico</string>
+    <string name="ad_tvTelefono_numero">55555555</string>
+    <string name="ad_tvCorreo_valor">nidia@inventado.com</string>
+
+    <string name="registrar">Registrar</string>
+
+    <string name="aa_contrasenia">Contraseña</string>
+    <string name="aa_btnIngresar">Ingresar</string>
+    <string name="aa_msgError">Los datos son incorrectos. Por favor, verifíquelos.</string>
+    <string name="aa_preguntaRegistrar">Usuario no encontrado. ¿Desea registrarse con estos datos?</string>
+    <string name="aa_msgErrorContrasenia">La contraseña debe ser mayor de 6 caracteres.</string>
+    <string name="aa_msgErrorRequerido">Este campo es requerido. Por favor, ingréselo.</string>
+    <string name="aa_msgErrorCorreo">El correo no es válido.</string>
+    <string name="aa_btnLimpiar">Limpiar</string>
+
+    <string name="aa_tvTitulo">Ingrese sus datos.</string>
+    <string name="aa_tvTituloR">Iniciar sesión</string>
+    <string name="aa_btnCancelar">Cancelar</string>
+    <string name="aa_registrar">Crear cuenta</string>
+    <string name="aa_tvTituloI">Crear cuenta</string>
+    <string name="aa_btnCrear">Aceptar</string>
+
+    <string name="ar_titulo">Registro</string>
+    <string name="ar_descripcion">Complete su registro:</string>
+    <string name="ar_empresa">Empresa</string>
+    <string name="ar_sector">Sector</string>
+    <string name="ar_btnRegistrar">Registrar</string>
+    <string name="ar_btnAceptar">Aceptar</string>
+    <string name="ar_btnModificar">Modificar</string>
+
+    <string name="ra_mensaje1">El registro se realizó</string>
+    <string name="ra_mensajeE">Lo sentimos, por el momento no se  pueden registrar sus datos.</string>
+    <string name="ra_mensaje2">Se ha creado la preferencia</string>
+    <string name="ra_mensajeRegistro">Se registró un nuevo usuario</string>
+</resources>
