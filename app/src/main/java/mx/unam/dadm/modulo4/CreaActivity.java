@@ -5,11 +5,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -345,20 +347,35 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             if (success) {
                 //finish();
                 registrarUsuario();
-                //Intent intent = new Intent(CreaActivity.this, RegistroActivity.class);
-                //startActivity(intent);
+
             }
             else {
 
-                Snackbar.make(etContrasenia, R.string.aa_preguntaModificar, Snackbar.LENGTH_INDEFINITE)
+                /*Snackbar.make(etContrasenia, R.string.aa_preguntaModificar, Snackbar.LENGTH_INDEFINITE)
                         .setAction(android.R.string.ok, new View.OnClickListener() {
                             public void onClick(View v) {
                                 modificarUsuario();
                             }
                         })
-                        .show();
+                        .show();*/
                 //etContrasenia.setError(getString(R.string.aa_msgError));
                 //etContrasenia.requestFocus();
+
+                new AlertDialog.Builder(CreaActivity.this)
+                        .setTitle(R.string.alerta)
+                        .setMessage(R.string.aa_preguntaModificar)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                modificarUsuario();
+                            }
+                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(CreaActivity.this, AutenticaActivity.class);
+                                startActivity(intent);
+                            }
+                       }).setCancelable(false).create().show();
 
             }
         }
