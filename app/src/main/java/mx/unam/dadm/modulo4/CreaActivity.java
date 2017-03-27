@@ -109,7 +109,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
 
                 //SE IAA A SESION
-            Intent intent = new Intent(CreaActivity.this, MainActivity.class);
+            Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
             startActivity(intent);
 
         }catch (Exception e){
@@ -139,7 +139,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, R.string.ra_mensajeModificacion, Toast.LENGTH_LONG).show();
 
             //SE IAA A SESION
-            Intent intent = new Intent(CreaActivity.this, MainActivity.class);
+            Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
             startActivity(intent);
 
         }catch (Exception e){

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mpuEditarFotoCam"
+        android:title="@string/mpu_EditFotoCamara">
+
+    </item>
+    <item android:id="@+id/mpuEditarFotoGal"
+        android:title="@string/mpu_EditFotoGaleria">
+
+    </item>
+</menu>

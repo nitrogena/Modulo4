@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/modEditar"
+        android:title="@string/ar_btnModificar"
+        android:orderInCategory="100">
+
+    </item>
+    <item
+        android:id="@+id/modEliminar"
+        android:title="@string/mod_eliminar"
+        android:orderInCategory="101">
+
+    </item>
+    <item
+        android:id="@+id/modSalir"
+        android:title="@string/mod_salir"
+        android:orderInCategory="105">
+
+    </item>
+
+    <item
+        android:id="@+id/moAcerca"
+        android:title="@string/mo_lista"
+        android:orderInCategory="103">
+
+    </item>
+    <item
+        android:id="@+id/moCreditos"
+        android:title="@string/mo_creditos"
+        android:orderInCategory="104">
+
+    </item>
+    <item
+        android:id="@+id/movEditar"
+        android:title="@string/ar_btnModificar"
+        android:orderInCategory="107"
+        app:showAsAction="always"
+        android:icon="@drawable/edit_user_male_48"></item>
+    <item
+        android:id="@+id/movEliminar"
+        android:title="@string/mod_eliminar"
+        android:orderInCategory="108"
+        app:showAsAction="always"
+        android:icon="@drawable/retire_hombre_usuario_48"></item>
+    <item
+        android:id="@+id/movSalir"
+        android:title="@string/mod_salir"
+        android:orderInCategory="108"
+        app:showAsAction="always"
+        android:icon="@drawable/salida_48"></item>
+</menu>

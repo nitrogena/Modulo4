@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_detalle"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+
+android:orientation="vertical"
+tools:context="mx.unam.dadm.modulo4.DetalleActivity">
+
+<include android:id="@+id/actionBar"
+    layout="@layout/action_bar">
+</include>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ad_tvTitulo"
+        android:text="@string/aa_bienvenida"
+        android:textSize="@dimen/ar_titulo"
+        android:layout_gravity="center" />
+
+
+    <ImageView
+        android:layout_width="@dimen/cv_ivPost_width"
+        android:layout_height="@dimen/cv_ivPost_height"
+        android:id="@+id/ivFoto"
+        android:src="@drawable/persona_de_sexo_masculino_48"
+        android:layout_gravity="center_horizontal"
+        android:onClick="verMenuPopup"/>
+
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ad_tvNombre"
+        android:textSize="@dimen/ad_textSize_nombre"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/ad_marginTop"
+        android:onClick="llamarTel">
+
+        <ImageView
+            android:id="@+id/ivTelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/phone_50"/>
+        <TextView
+            android:id="@+id/tvTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ad_tvTelefono"
+            android:textSize="@dimen/ad_textSize_otros"
+            android:onClick="llamarTel"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/ad_marginTop"
+        android:onClick="enviarCorreo">
+        <ImageView
+            android:id="@+id/ivCorreo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/message_52"/>
+        <TextView
+            android:id="@+id/tvCorreo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ad_tvCorreo"
+            android:textSize="@dimen/ad_textSize_otros"/>
+    </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>

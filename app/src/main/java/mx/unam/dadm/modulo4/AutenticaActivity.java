@@ -60,6 +60,9 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
         mostrarPreferencia();
 
+        if( getIntent().getBooleanExtra("salir", false)){
+            finish();
+        }
     }
 
     @Override
@@ -111,8 +114,8 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
             Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
 
-            //cambiar despues por el inicio de sesion
-            Intent intent = new Intent(AutenticaActivity.this, MainActivity.class);
+
+            Intent intent = new Intent(AutenticaActivity.this, DetalleActivity.class);
             startActivity(intent);
 
         }catch (Exception e){
@@ -141,7 +144,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
                 else{
                     //deve ir inicio
 
-                    Intent intent = new Intent(this, MainActivity.class);
+                    Intent intent = new Intent(this, DetalleActivity.class);
                     intent.putExtra("token", strToken);
                     startActivity(intent);
                 }
@@ -311,7 +314,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
                 //finish();
 
                 //inicio de seson
-                Intent intent = new Intent(AutenticaActivity.this, MainActivity.class);
+                Intent intent = new Intent(AutenticaActivity.this, DetalleActivity.class);
                 startActivity(intent);
             }
             else {

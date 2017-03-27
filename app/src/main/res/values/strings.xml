@@ -42,11 +42,9 @@
 
     <string name="ar_titulo">Registro</string>
     <string name="ar_descripcion">Complete su registro:</string>
-    <string name="ar_empresa">Empresa</string>
-    <string name="ar_sector">Sector</string>
     <string name="ar_btnRegistrar">Registrar</string>
     <string name="ar_btnAceptar">Aceptar</string>
-    <string name="ar_btnModificar">Modificar</string>
+    <string name="ar_btnModificar">Editar</string>
 
     <string name="ra_mensaje1">El registro se realizó</string>
     <string name="ra_mensajeE">Lo sentimos, por el momento no se  pueden registrar sus datos.</string>
@@ -55,4 +53,21 @@
     <string name="aa_preguntaModificar">El usuario ya existe. ¿Quiere sobreescribir los datos?</string>
     <string name="ra_mensajeModificacion">Los datos se sobreescribieron.</string>
     <string name="alerta">ALERTA</string>
+    <string name="aa_bienvenida">Bienvenida(o)</string>
+    <string name="mod_eliminar">Eliminar</string>
+    <string name="mod_salir">Cerrar sesión</string>
+    <string name="mo_lista">Acerca de</string>
+    <string name="mo_creditos">Créditos</string>
+    <string name="ai_acercaDe">Aplicación realizada para el Módulo 4. Android Básico.</string>
+    <string name="ai_derechos">Hecho en México. Todos los derechos reservados.</string>
+    <string name="ai_Creditos">Realizado por: Nidia Irania Orduña Fonseca. Imagenes del sitio: https://es.icons8.com</string>
+    <string name="ai_ayuda">En esta aplicación una persona puede iniciar sesión con un usuario (correo electrónico) y contraseaña. Es posible cambiar estos datos y se muestra una imagen.</string>
+    <string name="mensaje1_camara">El permiso ya fue otorgado previamente</string>
+    <string name="mensaje2_camara">Permiso concedido</string>
+    <string name="mensaje3_camara">Sin permisos </string>
+    <string name="mensaje4_camara">Cámara activada</string>
+    <string name="mensaje5_camara">Sin permisos</string>
+    <string name="mpu_EditFotoCamara">Editar con la cámara</string>
+    <string name="mpu_EditFotoGaleria">Editar de galería</string>
+    <string name="mpu_Editar">Foto editada</string>
 </resources>
