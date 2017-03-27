@@ -29,7 +29,8 @@
         <activity android:name=".AutenticaActivity" />
         <activity android:name=".CreaActivity" />
         <activity android:name=".DetalleActivity" />
-        <activity android:name=".InformativoActivity"></activity>
+        <activity android:name=".InformativoActivity" />
+        <activity android:name=".ModificaActivity"></activity>
     </application>
 
 </manifest>

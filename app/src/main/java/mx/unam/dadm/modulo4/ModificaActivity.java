@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class CreaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class ModificaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private AutoCompleteTextView actvCorreo;
     private EditText etContrasenia;
@@ -41,15 +41,10 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
-        //btnIngresar = (Button) findViewById(R.id.btnIngresar);
 
-        /*btnIngresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticar();
-            }
-        });
-*/
+
+        mostrarPreferencia();
+
         findViewById(R.id.btnIngresar).setOnClickListener(this);
         findViewById(R.id.btnLimpiar).setOnClickListener(this);
 
@@ -111,8 +106,8 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
             Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
 
-                //SE IAA A SESION
-            Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
+            //SE IAA A SESION
+            Intent intent = new Intent(ModificaActivity.this, DetalleActivity.class);
             startActivity(intent);
 
         }catch (Exception e){
@@ -142,7 +137,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, R.string.ra_mensajeModificacion, Toast.LENGTH_LONG).show();
 
             //SE IAA A SESION
-            Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
+            Intent intent = new Intent(ModificaActivity.this, DetalleActivity.class);
             startActivity(intent);
 
         }catch (Exception e){
@@ -153,7 +148,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public boolean mostrarPreferencia(String strUsuarioA, String strContraseniaA){
+    public void mostrarPreferencia(){
 
 //AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
 
@@ -162,33 +157,13 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         String strContrasenia = spAutentica.getString("contrasenia", "No existe contrasenia");
         String strToken = spAutentica.getString("token", "No existe token");
 
-        //TextView tvDesc = (TextView) findViewById(R.id.ar_tvDesc);
-        if (strUsuarioA.equals(strUsuario)){
-            /*if (strContraseniaA.equals(strContrasenia)){
+        actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
+        etContrasenia = (EditText) findViewById(R.id.etContrasenia);
 
-                if (strToken.equals("No existe token")){
+        actvCorreo.setText(strUsuario);
+        etContrasenia.setText(strContrasenia);
 
-                }
-                else{
-
-
-                }
-            }*/
-            return false;
-        }
-        else {
-            //deve ir a inicio
-            /*Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("token", strToken);
-            startActivity(intent);
-        */
-
-
-            String strValores = "\nUsuario: " + strUsuario + "\nContrasenia: " + strContrasenia;
-
-            //tvDesc.setText(strValores);
-            return true;
-        }
+        actvCorreo.setEnabled(false);
     }
 
     private void autenticar(View view) {
@@ -325,7 +300,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             } catch (InterruptedException e) {
                 return false;
             }
-            blRes = mostrarPreferencia(strUsuario, strContrasenia);
+            blRes = true;
             /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -349,7 +324,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
             if (success) {
                 //finish();
-                registrarUsuario();
+                modificarUsuario();
 
             }
             else {
@@ -364,7 +339,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
                 //etContrasenia.setError(getString(R.string.aa_msgError));
                 //etContrasenia.requestFocus();
 
-                new AlertDialog.Builder(CreaActivity.this)
+                /*new AlertDialog.Builder(CreaActivity.this)
                         .setTitle(R.string.alerta)
                         .setMessage(R.string.aa_preguntaModificar)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -373,13 +348,13 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
                                 modificarUsuario();
                             }
                         }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(CreaActivity.this, AutenticaActivity.class);
-                                startActivity(intent);
-                            }
-                       }).setCancelable(false).create().show();
-
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(CreaActivity.this, AutenticaActivity.class);
+                        startActivity(intent);
+                    }
+                }).setCancelable(false).create().show();
+*/
             }
         }
 
@@ -404,8 +379,8 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+     @Override
+     public void onNothingSelected(AdapterView<?> parent) {
 
-    }*/
+     }*/
 }

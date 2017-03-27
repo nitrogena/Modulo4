@@ -63,7 +63,7 @@ tools:context="mx.unam.dadm.modulo4.DetalleActivity">
             android:id="@+id/tvTel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ad_tvTelefono"
+            android:text="@string/ad_tvTelefono_numero"
             android:textSize="@dimen/ad_textSize_otros"
             android:onClick="llamarTel"/>
     </LinearLayout>
@@ -82,7 +82,7 @@ tools:context="mx.unam.dadm.modulo4.DetalleActivity">
             android:id="@+id/tvCorreo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ad_tvCorreo"
+            android:text="@string/ad_tvCorreo_valor"
             android:textSize="@dimen/ad_textSize_otros"/>
     </LinearLayout>
 

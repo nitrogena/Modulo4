@@ -30,6 +30,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
+import java.util.Random;
 
 
 public class DetalleActivity extends AppCompatActivity {
@@ -47,6 +48,21 @@ public class DetalleActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2;
 
+    private static final Random random = new Random();
+
+    private static final Integer[] imagenesID = {
+            R.drawable.deportista_en_silla_de_ruedas_48,
+            R.drawable.enamorado_48,
+            R.drawable.golf_48,
+            R.drawable.hombre_de_jengibre_48,
+            R.drawable.hombre_de_negocios_48,
+            R.drawable.mujer_de_negocios_48,
+            R.drawable.mujer_tur_stica_48,
+            R.drawable.pelo_mujer_48,
+            R.drawable.persona_de_edad_avanzada_48,
+            R.drawable.persona_de_sexo_masculino_48,
+            R.drawable.persona_femenina_48
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +72,8 @@ public class DetalleActivity extends AppCompatActivity {
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       /*   VER SI SE PONE
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle parametros = getIntent().getExtras();
         String nombre = parametros.getString("nombre");
@@ -65,7 +82,7 @@ public class DetalleActivity extends AppCompatActivity {
 
 
         int foto = parametros.getInt("foto");
-
+        */
 
         tvNombre = (TextView) findViewById(R.id.tvNombre);
         tvTelefono = (TextView) findViewById(R.id.tvTel);
@@ -73,6 +90,7 @@ public class DetalleActivity extends AppCompatActivity {
 
         ivFoto = (ImageView) findViewById(R.id.ivFoto);
 
+        /*
         Log.i("telefono", telefono);
 
         tvNombre.setText(nombre);
@@ -80,10 +98,13 @@ public class DetalleActivity extends AppCompatActivity {
         tvTelefono.setText(telefono);
 
         ivFoto.setImageResource(foto);
+    */
 
         //contactar();
 
 
+        int resource = imagenesID[random.nextInt(imagenesID.length)];
+        ivFoto.setImageResource(resource);
     }
 
     public void llamarTel(View view) {
@@ -300,7 +321,9 @@ public class DetalleActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.modEditar:
-                //refrescar();
+                Intent intent3 = new Intent(DetalleActivity.this, CreaActivity.class);
+                intent3.putExtra("editar", true);
+                startActivity(intent3);
                 break;
             case R.id.modEliminar:
                 //refrescar();
