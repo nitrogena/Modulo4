@@ -1,6 +1,7 @@
 package mx.unam.dadm.modulo4;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -321,12 +323,12 @@ public class DetalleActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.modEditar:
-                Intent intent3 = new Intent(DetalleActivity.this, CreaActivity.class);
+                Intent intent3 = new Intent(DetalleActivity.this, ModificaActivity.class);
                 intent3.putExtra("editar", true);
                 startActivity(intent3);
                 break;
             case R.id.modEliminar:
-                //refrescar();
+                mostrarMensaje();
                 break;
             case R.id.moAcerca:
                 mostrarInformativo("acerca");
@@ -342,10 +344,12 @@ public class DetalleActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.movEditar:
-                //refrescar();
+                Intent intent4 = new Intent(DetalleActivity.this, ModificaActivity.class);
+                intent4.putExtra("editar", true);
+                startActivity(intent4);
                 break;
             case R.id.movEliminar:
-                //refrescar();
+                mostrarMensaje();
                 break;
             case R.id.movSalir:
                 Intent intent2 = new Intent(DetalleActivity.this, AutenticaActivity.class);
@@ -369,5 +373,29 @@ public class DetalleActivity extends AppCompatActivity {
     /*Se usaron imagenes de
     <a href="https://es.icons8.com/web-app/34104/Persona-femenina">Persona femenina créditos de icono</a> */
 
+    public void mostrarMensaje(){
+        new AlertDialog.Builder(DetalleActivity.this)
+                .setTitle(R.string.alerta)
+                .setMessage(R.string.aa_preguntaEliminar)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        eliminarUsuario();
+                    }
+                }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(DetalleActivity.this, DetalleActivity.class);
+                startActivity(intent);
+            }
+        }).setCancelable(false).create().show();
+    }
+
+    private void eliminarUsuario() {
+        //Borrra usuario
+
+        Intent intent2 = new Intent(DetalleActivity.this, AutenticaActivity.class);
+        startActivity(intent2);
+    }
 }
 
