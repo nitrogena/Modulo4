@@ -4,6 +4,7 @@ package mx.unam.dadm.modulo4;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import mx.unam.dadm.modulo4.basedatos.ConstantesBD;
+import mx.unam.dadm.modulo4.basedatos.Sql;
+
 public class CreaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private AutoCompleteTextView actvCorreo;
@@ -33,6 +37,9 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
     private View svScroll;
     private Button btnIngresar;
     private IniciarSesionC isAutentica = null;
+
+    private Spinner spinner;
+    private String strGenero = "no";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +63,16 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         svScroll = findViewById(R.id.svScroll);
         pbProgress = findViewById(R.id.pbProgress);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinGenero);
-// Create an ArrayAdapter using the string array and a default spinner layout
+        spinner = (Spinner) findViewById(R.id.spinGenero);
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.genero_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(this);
-
-
-
     }
 
 
@@ -109,10 +113,37 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("contrasenia", strContrasenia);
             editor.commit();
 
+            /*BASE DE DATOS*/
+            String strNombre = "Nombre prueba";
+            String strDesc = "Usuario prueba";
+            String strTelefono = "044 55 55 55 55";
+
+            /*String strNombre = etNombre.getText().toString();
+            String strDesc = etDescripcion.getText().toString();
+            String strTelefono = etTelefono.getText().toString();*/
+
+            Sql bdBase = new Sql(this);
+
+            ContentValues cvValues = new ContentValues();
+            cvValues.put(ConstantesBD.TABLE_POS_EMAIL, strUsuario);
+            cvValues.put(ConstantesBD.TABLE_POS_PASSWORD, strContrasenia);
+            cvValues.put(ConstantesBD.TABLE_POS_GENDER, strGenero);
+            cvValues.put(ConstantesBD.TABLE_POS_PHOTO, 1);
+            cvValues.put(ConstantesBD.TABLE_POS_NAME, strNombre);
+            cvValues.put(ConstantesBD.TABLE_POS_DESCRPTION, strDesc);
+            cvValues.put(ConstantesBD.TABLE_POS_TEL, strTelefono);
+
+            bdBase.insertarUsuario(cvValues);
+
+
+            /**/
+
             Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
 
-                //SE IAA A SESION
+
             Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
+
+            //PASAR PARAMETRO CORREO
             startActivity(intent);
 
         }catch (Exception e){
@@ -139,10 +170,16 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("contrasenia", strContrasenia);
             editor.commit();
 
+
+            /*BASE DE DATOS*/
+
+            /**/
+
             Toast.makeText(this, R.string.ra_mensajeModificacion, Toast.LENGTH_LONG).show();
 
             //SE IAA A SESION
             Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
+            //pasar correo
             startActivity(intent);
 
         }catch (Exception e){
@@ -207,6 +244,8 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         // Store values at the time of the login attempt.
         String strCorreo = actvCorreo.getText().toString();
         String strContrasenia = etContrasenia.getText().toString();
+
+        //VALIDAR SPIN
 
         boolean blBandera = false;
         View focusView = null;
@@ -326,17 +365,6 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
             blRes = mostrarPreferencia(strUsuario, strContrasenia);
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(strUsuario)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(strContrasenia);
-                }
-                else{
-                    return false;
-                }
-            }*/
 
             //  register the new account here.
             return blRes;
@@ -348,22 +376,9 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             showProgress(false);
 
             if (success) {
-                //finish();
                 registrarUsuario();
-
             }
             else {
-
-                /*Snackbar.make(etContrasenia, R.string.aa_preguntaModificar, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(android.R.string.ok, new View.OnClickListener() {
-                            public void onClick(View v) {
-                                modificarUsuario();
-                            }
-                        })
-                        .show();*/
-                //etContrasenia.setError(getString(R.string.aa_msgError));
-                //etContrasenia.requestFocus();
-
                 new AlertDialog.Builder(CreaActivity.this)
                         .setTitle(R.string.alerta)
                         .setMessage(R.string.aa_preguntaModificar)
@@ -393,13 +408,14 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
+        strGenero = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
+        strGenero = "no";
     }
 
     /**
