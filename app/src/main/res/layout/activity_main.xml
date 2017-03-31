@@ -24,10 +24,11 @@
         android:id="@+id/tvSubtitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/am_tvSubtitulo"
+        android:text="@string/ai_ayuda"
         android:layout_below="@+id/tvTitulo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:padding="@dimen/activity_horizontal_margin"/>
 
 
     <Button
