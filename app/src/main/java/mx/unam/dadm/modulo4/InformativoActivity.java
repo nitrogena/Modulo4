@@ -1,5 +1,6 @@
 package mx.unam.dadm.modulo4;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,8 @@ public class InformativoActivity extends AppCompatActivity {
 
         Bundle parametros = getIntent().getExtras();
         String strTexto = parametros.getString("texto");
+        String strGenero = parametros.getString("genero");
+        String strUsuario = parametros.getString("correo");
         Log.i("texto", strTexto);
 
         /*tvAcercaDe = (TextView) findViewById(R.id.tvAcercaDe);
@@ -53,7 +56,11 @@ public class InformativoActivity extends AppCompatActivity {
             tvTexto.setText(getResources().getString(R.string.ai_ayuda));
         }
 
-
+        Intent intent = new Intent(InformativoActivity.this, DetalleActivity.class);
+        intent.putExtra("correo", strUsuario);
+        intent.putExtra("genero", strGenero);
+        intent.putExtra("token", "informativo");
+        //startActivity(intent);
 
     }
 }

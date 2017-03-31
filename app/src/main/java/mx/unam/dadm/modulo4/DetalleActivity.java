@@ -68,6 +68,7 @@ public class DetalleActivity extends AppCompatActivity {
             R.drawable.persona_femenina_48
     };
     private int resource;
+    private String strGenero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class DetalleActivity extends AppCompatActivity {
        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 */
         Bundle parametros = getIntent().getExtras();
-        String strGenero = parametros.getString("genero");
+        strGenero = parametros.getString("genero");
         strUsuario = parametros.getString("correo");
         String strAccion = parametros.getString("token");
 
@@ -105,8 +106,8 @@ public class DetalleActivity extends AppCompatActivity {
         ivFoto.setImageResource(foto);
     */
 
-        //contactar();
-        if (strGenero == "Mujer"){
+
+        if (strGenero.equals("Mujer")){
             tvBienvenida.setText(R.string.bienvenida);
         }
         else{
@@ -116,14 +117,14 @@ public class DetalleActivity extends AppCompatActivity {
 
        /*BASE DE DATOS*/
         Sql bdBase = new Sql(this);
-       if (strAccion == "registro") {
+       if (strAccion.equals("registro")){
            resource = imagenesID[random.nextInt(imagenesID.length)];
 
            ContentValues cvValues = new ContentValues();
            cvValues.put(ConstantesBD.TABLE_POS_PHOTO, resource);
            bdBase.modificarUsuario(cvValues, strUsuario);
        }else{
-           resource = imagenesID[bdBase.obtenerFoto(strUsuario)];
+           resource = bdBase.obtenerFoto(strUsuario);
        }
         ivFoto.setImageResource(resource);
         /**/
@@ -390,6 +391,8 @@ public class DetalleActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, InformativoActivity.class);
         intent.putExtra("texto", strOpcion);
+        intent.putExtra("correo", strUsuario);
+        intent.putExtra("genero", strGenero);
         startActivity(intent);
     }
 
