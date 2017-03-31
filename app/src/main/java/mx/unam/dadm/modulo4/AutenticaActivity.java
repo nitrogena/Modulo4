@@ -57,9 +57,9 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
         mostrarPreferencia();
 
-        if( getIntent().getBooleanExtra("salir", false)){
+        /*if( getIntent().getBooleanExtra("salir", false)){
             finish();
-        }
+        }*/
     }
 
     @Override
