@@ -184,7 +184,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         String strContrasenia = usuario.getPassword();
         strGenero = usuario.getGenero();
 
-
+        Toast.makeText(this, strGenero , Toast.LENGTH_SHORT).show();
 
 
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
@@ -207,6 +207,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
                 index = i;
             }
         }
+        Toast.makeText(this, index , Toast.LENGTH_SHORT).show();
         return index;
     }
 
