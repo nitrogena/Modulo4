@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -182,12 +183,18 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         Usuario usuario =  bdBase.obtenerUsuario(strUsuario);
         String strContrasenia = usuario.getPassword();
         strGenero = usuario.getGenero();
-        int intGenero = 1;
+
+
+        Log.i("genero", strGenero);
+
+        int intGenero = 2;
 
         if (strGenero.equals("Mujer"))
         {
-            intGenero = 0;
+            intGenero = 1;
         }
+        Log.i("intGenero: ", String.valueOf(intGenero));
+
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
         etContrasenia = (EditText) findViewById(R.id.etContrasenia);
         spinner = (Spinner) findViewById(R.id.spinGenero);
