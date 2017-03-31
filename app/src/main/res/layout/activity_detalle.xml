@@ -25,7 +25,7 @@ tools:context="mx.unam.dadm.modulo4.DetalleActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ad_tvTitulo"
+        android:id="@+id/tvBienvenida"
         android:text="@string/aa_bienvenida"
         android:textSize="@dimen/ar_titulo"
         android:layout_gravity="center" />

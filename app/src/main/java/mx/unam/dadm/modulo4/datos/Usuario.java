@@ -14,10 +14,11 @@ public class Usuario {
     private String telefono;
     private String descripcion;
 
-    public Usuario(int id, String correo, String password, String genero, int foto, String nombre,
+    public Usuario(){};
+
+    public Usuario(String correo, String password, String genero, int foto, String nombre,
                    String telefono, String descripcion)
     {
-        this.id = id;
         this.correo = correo;
         this.password = password;
         this.genero = genero;
@@ -82,9 +83,6 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-
-
     public String getDescripcion() {
         return descripcion;
     }

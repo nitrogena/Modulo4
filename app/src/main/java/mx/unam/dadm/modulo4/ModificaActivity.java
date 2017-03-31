@@ -4,6 +4,7 @@ package mx.unam.dadm.modulo4;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import mx.unam.dadm.modulo4.basedatos.ConstantesBD;
+import mx.unam.dadm.modulo4.basedatos.Sql;
+import mx.unam.dadm.modulo4.datos.Usuario;
+
 public class ModificaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private AutoCompleteTextView actvCorreo;
@@ -34,6 +39,9 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     private Button btnIngresar;
     private IniciarSesionC isAutentica = null;
 
+    private String strGenero = "no";
+    private String strUsuario;
+    private Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,9 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
 
+        Bundle parametros = getIntent().getExtras();
+
+        strUsuario = parametros.getString("correo");
 
         mostrarPreferencia();
 
@@ -51,19 +62,16 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         svScroll = findViewById(R.id.svScroll);
         pbProgress = findViewById(R.id.pbProgress);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinGenero);
-// Create an ArrayAdapter using the string array and a default spinner layout
+        spinner = (Spinner) findViewById(R.id.spinGenero);
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.genero_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(this);
-
-
-
     }
 
 
@@ -87,7 +95,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         etContrasenia.setText("");
     }
 
-    public void  registrarUsuario(){
+    /*public void  registrarUsuario(){
         try{
 
             actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
@@ -114,7 +122,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
             e.printStackTrace();
             Toast.makeText(this, R.string.ra_mensajeE, Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     public void  modificarUsuario(){
         try{
@@ -134,9 +142,18 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
             editor.putString("contrasenia", strContrasenia);
             editor.commit();
 
+           /*BASE DE DATOS*/
+            Sql bdBase = new Sql(this);
+
+            ContentValues cvValues = new ContentValues();
+            cvValues.put(ConstantesBD.TABLE_POS_PASSWORD,strContrasenia);
+            cvValues.put(ConstantesBD.TABLE_POS_GENDER, strGenero);
+            bdBase.modificarUsuario(cvValues, strUsuario);
+            /**/
+
             Toast.makeText(this, R.string.ra_mensajeModificacion, Toast.LENGTH_LONG).show();
 
-            //SE IAA A SESION
+
             Intent intent = new Intent(ModificaActivity.this, DetalleActivity.class);
             startActivity(intent);
 
@@ -152,16 +169,29 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
 
 //AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
 
-        SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
+        /*SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
         String strUsuario = spAutentica.getString("usuario", "No existe usuario");
         String strContrasenia = spAutentica.getString("contrasenia", "No existe contrasenia");
-        String strToken = spAutentica.getString("token", "No existe token");
+        String strToken = spAutentica.getString("token", "No existe token");*/
 
+        /*BASE DE DATOS*/
+        Sql bdBase = new Sql(this);
+        Usuario usuario =  bdBase.obtenerUsuario(strUsuario);
+        String strContrasenia = usuario.getPassword();
+        strGenero = usuario.getGenero();
+        int intGenero = 1;
+
+        if (strGenero == "Mujer")
+        {
+            intGenero = 0;
+        }
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
         etContrasenia = (EditText) findViewById(R.id.etContrasenia);
+        spinner = (Spinner) findViewById(R.id.spinGenero);
 
         actvCorreo.setText(strUsuario);
         etContrasenia.setText(strContrasenia);
+        spinner.setSelection(intGenero);
 
         actvCorreo.setEnabled(false);
     }
@@ -274,10 +304,6 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
-
-
-
     public class IniciarSesionC extends AsyncTask<Void, Void, Boolean> {
 
         private final String strUsuario;
@@ -292,29 +318,14 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            Boolean blRes = false;
-
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
-            blRes = true;
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(strUsuario)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(strContrasenia);
-                }
-                else{
-                    return false;
-                }
-            }*/
 
-            //  register the new account here.
-            return blRes;
+            return true;
         }
 
         @Override
@@ -323,38 +334,9 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
             showProgress(false);
 
             if (success) {
-                //finish();
+
                 modificarUsuario();
 
-            }
-            else {
-
-                /*Snackbar.make(etContrasenia, R.string.aa_preguntaModificar, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(android.R.string.ok, new View.OnClickListener() {
-                            public void onClick(View v) {
-                                modificarUsuario();
-                            }
-                        })
-                        .show();*/
-                //etContrasenia.setError(getString(R.string.aa_msgError));
-                //etContrasenia.requestFocus();
-
-                /*new AlertDialog.Builder(CreaActivity.this)
-                        .setTitle(R.string.alerta)
-                        .setMessage(R.string.aa_preguntaModificar)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                modificarUsuario();
-                            }
-                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(CreaActivity.this, AutenticaActivity.class);
-                        startActivity(intent);
-                    }
-                }).setCancelable(false).create().show();
-*/
             }
         }
 
@@ -368,13 +350,14 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
+        strGenero = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
+        strGenero = "no";
     }
 
     /**

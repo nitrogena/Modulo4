@@ -1,6 +1,7 @@
 package mx.unam.dadm.modulo4;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,17 +35,18 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.io.File;
 import java.util.Random;
 
+import mx.unam.dadm.modulo4.basedatos.ConstantesBD;
+import mx.unam.dadm.modulo4.basedatos.Sql;
+
 
 public class DetalleActivity extends AppCompatActivity {
 
-    TextView tvNombre;
-    TextView tvTelefono;
-    TextView tvCorreo;
-    ImageView ivFoto;
-
-    ImageButton ibContactar;
-    ImageButton ibOcultar;
-    ImageButton ibPreguntar;
+    private TextView tvNombre;
+    private TextView tvTelefono;
+    private TextView tvCorreo;
+    private ImageView ivFoto;
+    private TextView tvBienvenida;
+    private String strUsuario;
 
     private static final int MY_PERMISSIONS_REQUEST_CALL = 3;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
@@ -65,6 +67,7 @@ public class DetalleActivity extends AppCompatActivity {
             R.drawable.persona_de_sexo_masculino_48,
             R.drawable.persona_femenina_48
     };
+    private int resource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +79,16 @@ public class DetalleActivity extends AppCompatActivity {
 
        /*   VER SI SE PONE
        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+*/
         Bundle parametros = getIntent().getExtras();
-        String nombre = parametros.getString("nombre");
-        String telefono = parametros.getString("telefono");
-        String correo = parametros.getString("correo");
+        String strGenero = parametros.getString("genero");
+        strUsuario = parametros.getString("correo");
+        String strAccion = parametros.getString("token");
 
 
-        int foto = parametros.getInt("foto");
-        */
+        //int foto = parametros.getInt("foto");
 
+        tvBienvenida = (TextView) findViewById(R.id.tvBienvenida);
         tvNombre = (TextView) findViewById(R.id.tvNombre);
         tvTelefono = (TextView) findViewById(R.id.tvTel);
         tvCorreo = (TextView) findViewById(R.id.tvCorreo);
@@ -103,10 +106,28 @@ public class DetalleActivity extends AppCompatActivity {
     */
 
         //contactar();
+        if (strGenero == "Mujer"){
+            tvBienvenida.setText(R.string.bienvenida);
+        }
+        else{
+            tvBienvenida.setText(R.string.bienvenido);
+        }
+        tvCorreo.setText(strUsuario);
 
+       /*BASE DE DATOS*/
+        Sql bdBase = new Sql(this);
+       if (strAccion == "registro") {
+           resource = imagenesID[random.nextInt(imagenesID.length)];
 
-        int resource = imagenesID[random.nextInt(imagenesID.length)];
+           ContentValues cvValues = new ContentValues();
+           cvValues.put(ConstantesBD.TABLE_POS_PHOTO, resource);
+           bdBase.modificarUsuario(cvValues, strUsuario);
+       }else{
+           resource = imagenesID[bdBase.obtenerFoto(strUsuario)];
+       }
         ivFoto.setImageResource(resource);
+        /**/
+
     }
 
     public void llamarTel(View view) {
@@ -324,7 +345,8 @@ public class DetalleActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.modEditar:
                 Intent intent3 = new Intent(DetalleActivity.this, ModificaActivity.class);
-                intent3.putExtra("editar", true);
+                intent3.putExtra("correo", strUsuario);
+                intent3.putExtra("token", "modificacion");
                 startActivity(intent3);
                 break;
             case R.id.modEliminar:
@@ -345,7 +367,8 @@ public class DetalleActivity extends AppCompatActivity {
                 break;
             case R.id.movEditar:
                 Intent intent4 = new Intent(DetalleActivity.this, ModificaActivity.class);
-                intent4.putExtra("editar", true);
+                intent4.putExtra("correo", strUsuario);
+                intent4.putExtra("token", "modificacion");
                 startActivity(intent4);
                 break;
             case R.id.movEliminar:
@@ -393,6 +416,9 @@ public class DetalleActivity extends AppCompatActivity {
 
     private void eliminarUsuario() {
         //Borrra usuario
+
+        Sql bdBase = new Sql(this);
+        bdBase.borrarUsuario(strUsuario);
 
         Intent intent2 = new Intent(DetalleActivity.this, AutenticaActivity.class);
         startActivity(intent2);

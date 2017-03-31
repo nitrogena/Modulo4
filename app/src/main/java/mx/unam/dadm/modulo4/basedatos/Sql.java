@@ -44,8 +44,6 @@ public class Sql extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXIST " + ConstantesBD.TABLE_NAME_POS);
 
         onCreate(sqLiteDatabase);
-
-
     }
 
     public void insertarUsuario(ContentValues contentValues){
@@ -54,27 +52,20 @@ public class Sql extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int modificarUsuario(Usuario usuario) {
+    public void modificarUsuario(ContentValues contentValues, String strCorreo) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.update(ConstantesBD.TABLE_NAME_POS, contentValues, ConstantesBD.TABLE_POS_EMAIL + " = ?",
+                new String[]{String.valueOf(strCorreo)});
 
-        ContentValues cvValues = new ContentValues();
-        cvValues.put(ConstantesBD.TABLE_POS_EMAIL, usuario.getCorreo());
-        cvValues.put(ConstantesBD.TABLE_POS_PASSWORD, usuario.getPassword());
-        cvValues.put(ConstantesBD.TABLE_POS_GENDER, usuario.getGenero());
-        cvValues.put(ConstantesBD.TABLE_POS_PHOTO, usuario.getFoto());
-        cvValues.put(ConstantesBD.TABLE_POS_NAME, usuario.getNombre());
-        cvValues.put(ConstantesBD.TABLE_POS_DESCRPTION, usuario.getDescripcion());
-        cvValues.put(ConstantesBD.TABLE_POS_TEL, usuario.getTelefono());
-
-        return db.update(ConstantesBD.TABLE_NAME_POS, cvValues, ConstantesBD.TABLE_POS_EMAIL + " = ?",
-                new String[]{String.valueOf(usuario.getCorreo())});
+        db.close();
     }
 
-    public void borrarUsuario(Usuario usuario)
+    public void borrarUsuario(String strUsuario)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(ConstantesBD.TABLE_NAME_POS, ConstantesBD.TABLE_POS_ID + "=?",
-                new String[]{String.valueOf(usuario.getId())});
+        db.delete(ConstantesBD.TABLE_NAME_POS, ConstantesBD.TABLE_POS_EMAIL + "=?",
+                new String[]{String.valueOf(strUsuario)});
+        db.close();
     }
 
     public Usuario obtenerUsuario(String strCorreo) {
@@ -86,16 +77,33 @@ public class Sql extends SQLiteOpenHelper {
                         ConstantesBD.TABLE_POS_DESCRPTION},
                 ConstantesBD.TABLE_POS_EMAIL + "=?",
                 new String[] { String.valueOf(strCorreo) }, null, null, null, null);
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
-        Usuario usuario = new Usuario(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                Integer.parseInt(cursor.getString(4)), cursor.getString(5), cursor.getString(6),
-                cursor.getString(7));
+        }
+            Usuario usuario = new Usuario(
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                    Integer.parseInt(cursor.getString(4)), cursor.getString(5), cursor.getString(6),
+                    cursor.getString(7));
+            usuario.setId(Integer.parseInt(cursor.getString(0)));
+            db.close();
+            return usuario;
 
-        return usuario;
+
     }
 
+    public int obtenerFoto(String strCorreo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(ConstantesBD.TABLE_NAME_POS, new String[] {
+                        ConstantesBD.TABLE_POS_PHOTO},
+                ConstantesBD.TABLE_POS_EMAIL + "=?",
+                new String[] { String.valueOf(strCorreo) }, null, null, null, null);
+        if (cursor != null){
+            cursor.moveToFirst();
+        }
+        int intFoto = Integer.parseInt(cursor.getString(0));
+        db.close();
+        return intFoto;
+    }
 
 
 }

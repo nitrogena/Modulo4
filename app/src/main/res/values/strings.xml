@@ -71,4 +71,6 @@
     <string name="mpu_EditFotoGaleria">Editar de galería</string>
     <string name="mpu_Editar">Foto editada</string>
     <string name="aa_preguntaEliminar">¿Está seguro que desea eliminar a este usuario?</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="bienvenida">Bienvenida</string>
 </resources>

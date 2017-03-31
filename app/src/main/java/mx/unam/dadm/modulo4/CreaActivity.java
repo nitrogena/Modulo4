@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import mx.unam.dadm.modulo4.basedatos.ConstantesBD;
 import mx.unam.dadm.modulo4.basedatos.Sql;
+import mx.unam.dadm.modulo4.datos.Usuario;
 
 public class CreaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -48,21 +49,12 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
-        //btnIngresar = (Button) findViewById(R.id.btnIngresar);
 
-        /*btnIngresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticar();
-            }
-        });
-*/
         findViewById(R.id.btnIngresar).setOnClickListener(this);
         findViewById(R.id.btnLimpiar).setOnClickListener(this);
 
         svScroll = findViewById(R.id.svScroll);
         pbProgress = findViewById(R.id.pbProgress);
-
         spinner = (Spinner) findViewById(R.id.spinGenero);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -71,10 +63,8 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-
         spinner.setOnItemSelectedListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -96,12 +86,11 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         etContrasenia.setText("");
     }
 
-    public void  registrarUsuario(){
+    public void registrarUsuario(){
         try{
 
             actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
             etContrasenia = (EditText) findViewById(R.id.etContrasenia);
-
 
             String strUsuario = actvCorreo.getText().toString();
             String strContrasenia = etContrasenia.getText().toString();
@@ -128,22 +117,21 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             cvValues.put(ConstantesBD.TABLE_POS_EMAIL, strUsuario);
             cvValues.put(ConstantesBD.TABLE_POS_PASSWORD, strContrasenia);
             cvValues.put(ConstantesBD.TABLE_POS_GENDER, strGenero);
-            cvValues.put(ConstantesBD.TABLE_POS_PHOTO, 1);
+            cvValues.put(ConstantesBD.TABLE_POS_PHOTO, 21);
             cvValues.put(ConstantesBD.TABLE_POS_NAME, strNombre);
             cvValues.put(ConstantesBD.TABLE_POS_DESCRPTION, strDesc);
             cvValues.put(ConstantesBD.TABLE_POS_TEL, strTelefono);
 
             bdBase.insertarUsuario(cvValues);
-
-
             /**/
 
             Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
 
 
             Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
-
-            //PASAR PARAMETRO CORREO
+            intent.putExtra("correo", strUsuario);
+            intent.putExtra("genero", strGenero);
+            intent.putExtra("token", "registro");
             startActivity(intent);
 
         }catch (Exception e){
@@ -154,11 +142,8 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
     public void  modificarUsuario(){
         try{
-
-            //SE DEBEN MODIFICAR LOS DATOS DEL USUARIO
             actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
             etContrasenia = (EditText) findViewById(R.id.etContrasenia);
-
 
             String strUsuario = actvCorreo.getText().toString();
             String strContrasenia = etContrasenia.getText().toString();
@@ -170,16 +155,28 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("contrasenia", strContrasenia);
             editor.commit();
 
-
             /*BASE DE DATOS*/
+            Sql bdBase = new Sql(this);
 
+            ContentValues cvValues = new ContentValues();
+            //cvValues.put(ConstantesBD.TABLE_POS_EMAIL, usuario.getCorreo());
+            cvValues.put(ConstantesBD.TABLE_POS_PASSWORD,strContrasenia);
+            cvValues.put(ConstantesBD.TABLE_POS_GENDER, strGenero);
+            //cvValues.put(ConstantesBD.TABLE_POS_PHOTO, usuario.getFoto());
+            //cvValues.put(ConstantesBD.TABLE_POS_NAME, usuario.getNombre());
+            //cvValues.put(ConstantesBD.TABLE_POS_DESCRPTION, usuario.getDescripcion());
+            //cvValues.put(ConstantesBD.TABLE_POS_TEL, usuario.getTelefono());
+
+            bdBase.modificarUsuario(cvValues, strUsuario);
             /**/
 
             Toast.makeText(this, R.string.ra_mensajeModificacion, Toast.LENGTH_LONG).show();
 
             //SE IAA A SESION
             Intent intent = new Intent(CreaActivity.this, DetalleActivity.class);
-            //pasar correo
+            intent.putExtra("correo", strUsuario);
+            intent.putExtra("genero", strGenero);
+            intent.putExtra("token", "modificacion");
             startActivity(intent);
 
         }catch (Exception e){
@@ -188,16 +185,26 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-
     public boolean mostrarPreferencia(String strUsuarioA, String strContraseniaA){
 
 //AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
 
-        SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
+        /*SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
         String strUsuario = spAutentica.getString("usuario", "No existe usuario");
         String strContrasenia = spAutentica.getString("contrasenia", "No existe contrasenia");
         String strToken = spAutentica.getString("token", "No existe token");
+        */
+
+         /*BASE DE DATOS*/
+        Sql bdBase = new Sql(this);
+        String strUsuario = "no";
+        Usuario usuario =  bdBase.obtenerUsuario(strUsuarioA);
+        if (usuario != null){
+            strUsuario = usuario.getCorreo();
+        }
+
+
+            /**/
 
         //TextView tvDesc = (TextView) findViewById(R.id.ar_tvDesc);
         if (strUsuarioA.equals(strUsuario)){
@@ -221,7 +228,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         */
 
 
-            String strValores = "\nUsuario: " + strUsuario + "\nContrasenia: " + strContrasenia;
+            //String strValores = "\nUsuario: " + strUsuario + "\nContrasenia: " + strContrasenia;
 
             //tvDesc.setText(strValores);
             return true;
@@ -337,10 +344,6 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             svScroll.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
-
-
-
 
     public class IniciarSesionC extends AsyncTask<Void, Void, Boolean> {
 
