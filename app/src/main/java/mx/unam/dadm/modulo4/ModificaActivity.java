@@ -184,7 +184,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         String strContrasenia = usuario.getPassword();
         strGenero = usuario.getGenero();
 
-        Toast.makeText(this, strGenero , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, strGenero , Toast.LENGTH_SHORT).show();
 
 
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
@@ -207,7 +207,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
                 index = i;
             }
         }
-        Toast.makeText(this, index , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, index , Toast.LENGTH_SHORT).show();
         return index;
     }
 
@@ -366,9 +366,11 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         strGenero = parent.getItemAtPosition(position).toString();
+        int postition1 = parent.getFirstVisiblePosition();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
+        //Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
+        Toast.makeText(parent.getContext(), "Selected: " + postition1, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
