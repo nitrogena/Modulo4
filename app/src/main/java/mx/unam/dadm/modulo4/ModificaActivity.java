@@ -185,15 +185,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         strGenero = usuario.getGenero();
 
 
-        Log.i("genero", strGenero);
 
-        int intGenero = 2;
-
-        if (strGenero.equals("Mujer"))
-        {
-            intGenero = 1;
-        }
-        Log.i("intGenero: ", String.valueOf(intGenero));
 
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
         etContrasenia = (EditText) findViewById(R.id.etContrasenia);
@@ -201,9 +193,21 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
 
         actvCorreo.setText(strUsuario);
         etContrasenia.setText(strContrasenia);
-        spinner.setSelection(intGenero);
+        spinner.setSelection(getIndex(spinner, strGenero));
 
         actvCorreo.setEnabled(false);
+    }
+
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
     }
 
     private void autenticar(View view) {
