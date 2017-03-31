@@ -45,13 +45,12 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crea);
+        setContentView(R.layout.activity_modifica);
 
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
 
         Bundle parametros = getIntent().getExtras();
-
         strUsuario = parametros.getString("correo");
 
         mostrarPreferencia();
@@ -91,8 +90,9 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     public void limpiarCampos(View view){
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
         etContrasenia = (EditText) findViewById(R.id.etContrasenia);
-        actvCorreo.setText("");
-        etContrasenia.setText("");
+        //actvCorreo.setText("");
+        //etContrasenia.setText("");
+        finish();
     }
 
     /*public void  registrarUsuario(){
@@ -155,6 +155,9 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
 
 
             Intent intent = new Intent(ModificaActivity.this, DetalleActivity.class);
+            intent.putExtra("correo", strUsuario);
+            intent.putExtra("genero", strGenero);
+            intent.putExtra("token", "modificacion");
             startActivity(intent);
 
         }catch (Exception e){
@@ -181,7 +184,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         strGenero = usuario.getGenero();
         int intGenero = 1;
 
-        if (strGenero == "Mujer")
+        if (strGenero.equals("Mujer"))
         {
             intGenero = 0;
         }

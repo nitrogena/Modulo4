@@ -1,9 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_crea"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="mx.unam.dadm.modulo4.ModificaActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include android:id="@+id/actionBar"
+        layout="@layout/action_bar">
+    </include>
+
+    <ProgressBar
+        android:id="@+id/pbProgress"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/svScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTitulo"
+                android:text="@string/aa_tvTituloM"
+                android:textSize="@dimen/ar_titulo"
+                android:layout_gravity="center"/>
+
+            <!-- <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tvDescPant"
+                 android:text="@string/aa_tvTitulo"
+                 android:textSize="@dimen/ar_texto"
+                 android:layout_gravity="center"/>-->
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actvCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/ad_tvCorreo"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etContrasenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/aa_contrasenia"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/registrar"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/spinGenero"
+                android:prompt="@string/ac_spnGenero">
+            </Spinner>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnLimpiar"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/aa_layout_marginTop"
+                    android:text="@string/aa_btnCancelar"
+                    android:layout_weight=".5"
+                    android:theme="@style/BotonRaised"
+
+                    android:layout_gravity="center"/>
+
+
+
+                <Button
+                    android:id="@+id/btnIngresar"
+                    android:layout_weight=".5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/aa_layout_marginTop"
+                    android:text="@string/aa_btnCrear"
+
+                    android:theme="@style/BotonRaised"
+
+                    android:layout_gravity="center"/>
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEnlaceRegistrar"
+                android:text="@string/aa_registrar"
+                android:textStyle="italic"
+                android:layout_gravity="center"/>-->
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+
+
