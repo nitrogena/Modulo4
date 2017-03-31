@@ -12,4 +12,7 @@
     <dimen name="aa_layout_marginTop">16dp</dimen>
     <dimen name="cv_ivPost_width">130dp</dimen>
     <dimen name="cv_ivPost_height">130dp</dimen>
+
+    <dimen name="input_label_vertical_spacing">8dp</dimen>
+    <dimen name="input_label_horizontal_spacing">4dp</dimen>
 </resources>
