@@ -54,7 +54,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         Bundle parametros = getIntent().getExtras();
         strUsuario = parametros.getString("correo");
 
-        mostrarPreferencia();
+        //mostrarPreferencia();
 
         findViewById(R.id.btnIngresar).setOnClickListener(this);
         findViewById(R.id.btnLimpiar).setOnClickListener(this);
@@ -70,8 +70,9 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-
         spinner.setOnItemSelectedListener(this);
+
+        mostrarPreferencia(adapter);
     }
 
 
@@ -169,7 +170,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-    public void mostrarPreferencia(){
+    public void mostrarPreferencia(ArrayAdapter<CharSequence> adapter){
 
 //AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
 
@@ -193,7 +194,14 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
 
         actvCorreo.setText(strUsuario);
         etContrasenia.setText(strContrasenia);
-        spinner.setSelection(getIndex(spinner, strGenero));
+        //spinner.setSelection(getIndex(spinner, strGenero));
+
+        for(int i=0; i < adapter.getCount(); i++) {
+            if(strGenero.trim().equals(adapter.getItem(i).toString())){
+                spinner.setSelection(i);
+                break;
+            }
+        }
 
         actvCorreo.setEnabled(false);
     }
