@@ -271,11 +271,17 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
                 Sql bdBase = new Sql(AutenticaActivity.this);
                 Usuario usuario = bdBase.obtenerUsuario(strUsuario);
 
-                Intent intent = new Intent(AutenticaActivity.this, DetalleActivity.class);
-                intent.putExtra("correo", strUsuario);
-                intent.putExtra("token", "autenticar");
-                intent.putExtra("genero", usuario.getGenero());
-                startActivity(intent);
+                if (usuario.getPassword().equals(strContrasenia)){
+                    Intent intent = new Intent(AutenticaActivity.this, DetalleActivity.class);
+                    intent.putExtra("correo", strUsuario);
+                    intent.putExtra("token", "autenticar");
+                    intent.putExtra("genero", usuario.getGenero());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), R.string.aa_msgErrorContra, Toast.LENGTH_LONG).show();
+                }
+
+
             }
             else {
 
