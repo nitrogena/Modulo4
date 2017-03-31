@@ -46,15 +46,14 @@ tools:context="mx.unam.dadm.modulo4.InformativoActivity">
 
     <Button
         android:id="@+id/btnRegresar"
-        android:layout_below="@+id/tvDerechos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/aa_layout_marginTop"
+        android:layout_marginTop="15dp"
         android:text="@string/aa_btnRegresar"
         android:layout_weight="1"
         android:theme="@style/BotonRaised"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:onClick="regresar"/>
+        android:layout_below="@+id/tvDerechos"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

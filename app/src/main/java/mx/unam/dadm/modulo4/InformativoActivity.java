@@ -5,9 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
-public class InformativoActivity extends AppCompatActivity {
+public class InformativoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvTexto;
     private String strGenero;
@@ -44,15 +45,27 @@ public class InformativoActivity extends AppCompatActivity {
             tvTexto.setText(getResources().getString(R.string.ai_ayuda));
         }
 
-
+        findViewById(R.id.btnRegresar).setOnClickListener(this);
 
     }
 
-    public void regresar(){
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.btnRegresar:
+                regresar(view);
+                break;
+
+        }
+    }
+    public void regresar(View view){
         Intent intent = new Intent(InformativoActivity.this, DetalleActivity.class);
         intent.putExtra("correo", strUsuario);
         intent.putExtra("genero", strGenero);
         intent.putExtra("token", "informativo");
         startActivity(intent);
     }
+
+
 }
