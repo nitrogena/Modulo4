@@ -85,6 +85,12 @@ tools:context="mx.unam.dadm.modulo4.DetalleActivity">
             android:text="@string/ad_tvCorreo_valor"
             android:textSize="@dimen/ad_textSize_otros"/>
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/tvGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ac_spnGenero"
+        android:layout_marginTop="@dimen/aa_layout_marginTop"
+        android:textSize="@dimen/ad_textSize_otros" />
 </LinearLayout>
 </LinearLayout>

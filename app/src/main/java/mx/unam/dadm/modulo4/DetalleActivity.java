@@ -46,6 +46,7 @@ public class DetalleActivity extends AppCompatActivity {
     private TextView tvCorreo;
     private ImageView ivFoto;
     private TextView tvBienvenida;
+    private TextView tvGenero;
     private String strUsuario;
 
     private static final int MY_PERMISSIONS_REQUEST_CALL = 3;
@@ -93,18 +94,8 @@ public class DetalleActivity extends AppCompatActivity {
         tvNombre = (TextView) findViewById(R.id.tvNombre);
         tvTelefono = (TextView) findViewById(R.id.tvTel);
         tvCorreo = (TextView) findViewById(R.id.tvCorreo);
-
+        tvGenero = (TextView) findViewById(R.id.tvGenero);
         ivFoto = (ImageView) findViewById(R.id.ivFoto);
-
-        /*
-        Log.i("telefono", telefono);
-
-        tvNombre.setText(nombre);
-        tvCorreo.setText(correo);
-        tvTelefono.setText(telefono);
-
-        ivFoto.setImageResource(foto);
-    */
 
 
         if (strGenero.equals("Mujer")){
@@ -114,6 +105,7 @@ public class DetalleActivity extends AppCompatActivity {
             tvBienvenida.setText(R.string.bienvenido);
         }
         tvCorreo.setText(strUsuario);
+        tvGenero.setText(strGenero);
 
        /*BASE DE DATOS*/
         Sql bdBase = new Sql(this);

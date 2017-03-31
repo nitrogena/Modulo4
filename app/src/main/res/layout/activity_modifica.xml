@@ -79,6 +79,11 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ac_spnGenero"
+                style="@style/InputLabel" />
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

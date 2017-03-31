@@ -186,9 +186,6 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public boolean mostrarPreferencia(String strUsuarioA, String strContraseniaA){
-
-//AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
-
         /*SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
         String strUsuario = spAutentica.getString("usuario", "No existe usuario");
         String strContrasenia = spAutentica.getString("contrasenia", "No existe contrasenia");
@@ -198,35 +195,12 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
          /*BASE DE DATOS*/
         Sql bdBase = new Sql(this);
 
-
-
-            /**/
-
-        //TextView tvDesc = (TextView) findViewById(R.id.ar_tvDesc);
         if (bdBase.existeUsuario(strUsuarioA)){
-            /*if (strContraseniaA.equals(strContrasenia)){
 
-                if (strToken.equals("No existe token")){
-
-                }
-                else{
-
-
-                }
-            }*/
             return false;
         }
         else{
-            //deve ir a inicio
-            /*Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("token", strToken);
-            startActivity(intent);
-        */
 
-
-            //String strValores = "\nUsuario: " + strUsuario + "\nContrasenia: " + strContrasenia;
-
-            //tvDesc.setText(strValores);
             return true;
         }
     }

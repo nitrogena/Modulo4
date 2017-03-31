@@ -97,35 +97,7 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         finish();
     }
 
-    /*public void  registrarUsuario(){
-        try{
-
-            actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
-            etContrasenia = (EditText) findViewById(R.id.etContrasenia);
-
-
-            String strUsuario = actvCorreo.getText().toString();
-            String strContrasenia = etContrasenia.getText().toString();
-
-            SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = spAutentica.edit();
-
-            editor.putString("usuario", strUsuario);
-            editor.putString("contrasenia", strContrasenia);
-            editor.commit();
-
-            Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
-
-            //SE IAA A SESION
-            Intent intent = new Intent(ModificaActivity.this, DetalleActivity.class);
-            startActivity(intent);
-
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(this, R.string.ra_mensajeE, Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
+    
     public void  modificarUsuario(){
         try{
 
@@ -172,8 +144,6 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
 
     public void mostrarPreferencia(ArrayAdapter<CharSequence> adapter){
 
-//AQUI SE DEBE HACER LA BUSEQUEDA EN LA BASE DE DATOS
-
         /*SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
         String strUsuario = spAutentica.getString("usuario", "No existe usuario");
         String strContrasenia = spAutentica.getString("contrasenia", "No existe contrasenia");
@@ -184,8 +154,6 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         Usuario usuario =  bdBase.obtenerUsuario(strUsuario);
         String strContrasenia = usuario.getPassword();
         strGenero = usuario.getGenero();
-
-        //Toast.makeText(this, strGenero , Toast.LENGTH_SHORT).show();
 
 
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
