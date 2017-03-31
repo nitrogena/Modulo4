@@ -22,6 +22,9 @@ import android.widget.Toast;
 
 import java.io.FileOutputStream;
 
+import mx.unam.dadm.modulo4.basedatos.Sql;
+import mx.unam.dadm.modulo4.datos.Usuario;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 public class AutenticaActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,6 +38,8 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
     private TextView tvCuenta;
 
+    private String strCorreo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +47,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
 
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
-        //btnIngresar = (Button) findViewById(R.id.btnIngresar);
 
-        /*btnIngresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                autenticar();
-            }
-        });
-*/
         findViewById(R.id.btnIngresar).setOnClickListener(this);
         findViewById(R.id.btnLimpiar).setOnClickListener(this);
         findViewById(R.id.tvEnlaceRegistrar).setOnClickListener(this);
@@ -95,38 +92,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
         etContrasenia.setText("");
     }
 
-    public void  registrarUsuario(View view){
-        try{
-
-            actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
-            etContrasenia = (EditText) findViewById(R.id.etContrasenia);
-
-
-            String strUsuario = actvCorreo.getText().toString();
-            String strContrasenia = etContrasenia.getText().toString();
-
-            SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = spAutentica.edit();
-
-            editor.putString("usuario", strUsuario);
-            editor.putString("contrasenia", strContrasenia);
-            editor.commit();
-
-            Toast.makeText(this, R.string.ra_mensajeRegistro, Toast.LENGTH_LONG).show();
-
-
-            Intent intent = new Intent(AutenticaActivity.this, DetalleActivity.class);
-            startActivity(intent);
-
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(this, R.string.ra_mensajeE, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-
-    public boolean mostrarInicio(String strUsuarioA, String strContraseniaA){
+    /*public boolean mostrarInicio(String strUsuarioA, String strContraseniaA){
 
 
         SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
@@ -151,11 +117,10 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
             }
         }
 
-        String strValores = "\nUsuario: " +strUsuario+ "\nContrasenia: " + strContrasenia;
-
-        //tvDesc.setText(strValores);
+        //Sql bdBase = new Sql(this);
+        //return bdBase.existeUsuario(strUsuarioA);
         return false;
-    }
+    }*/
 
     private void autenticar(View view) {
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
@@ -171,7 +136,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
         etContrasenia.setError(null);
 
         // Store values at the time of the login attempt.
-        String strCorreo = actvCorreo.getText().toString();
+        strCorreo = actvCorreo.getText().toString();
         String strContrasenia = etContrasenia.getText().toString();
 
         boolean blBandera = false;
@@ -288,18 +253,9 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
             } catch (InterruptedException e) {
                 return false;
             }
-            blRes = mostrarInicio(strUsuario, strContrasenia);
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(strUsuario)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(strContrasenia);
-                }
-                else{
-                    return false;
-                }
-            }*/
+            //blRes = mostrarInicio(strUsuario, strContrasenia);
+            Sql bdBase = new Sql(AutenticaActivity.this);
+            blRes = bdBase.existeUsuario(strUsuario);
 
             //  register the new account here.
             return blRes;
@@ -311,10 +267,14 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
             showProgress(false);
 
             if (success) {
-                //finish();
 
-                //inicio de seson
+                Sql bdBase = new Sql(AutenticaActivity.this);
+                Usuario usuario = bdBase.obtenerUsuario(strUsuario);
+
                 Intent intent = new Intent(AutenticaActivity.this, DetalleActivity.class);
+                intent.putExtra("correo", strUsuario);
+                intent.putExtra("token", "autenticar");
+                intent.putExtra("genero", usuario.getGenero());
                 startActivity(intent);
             }
             else {
@@ -353,7 +313,7 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
             etContrasenia.setText(strContrasenia);
         }
 
-        String strValores = "\nUsuario: " +strUsuario+ "\nContrasenia: " + strContrasenia;
+        //String strValores = "\nUsuario: " +strUsuario+ "\nContrasenia: " + strContrasenia;
     }
 
 }

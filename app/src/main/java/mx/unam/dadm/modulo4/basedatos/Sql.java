@@ -77,14 +77,27 @@ public class Sql extends SQLiteOpenHelper {
                         ConstantesBD.TABLE_POS_DESCRPTION},
                 ConstantesBD.TABLE_POS_EMAIL + "=?",
                 new String[] { String.valueOf(strCorreo) }, null, null, null, null);
+        Usuario usuario = new Usuario();
         if (cursor != null) {
-            cursor.moveToFirst();
-        }
-            Usuario usuario = new Usuario(
+            if (cursor.getCount() > 0) {
+
+
+                cursor.moveToFirst();
+
+            /*Usuario usuario = new Usuario(
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
                     Integer.parseInt(cursor.getString(4)), cursor.getString(5), cursor.getString(6),
                     cursor.getString(7));
-            usuario.setId(Integer.parseInt(cursor.getString(0)));
+            usuario.setId(Integer.parseInt(cursor.getString(0)));*/
+                usuario.setCorreo(cursor.getString(1));
+                usuario.setPassword(cursor.getString(2));
+                usuario.setGenero(cursor.getString(3));
+                usuario.setFoto(Integer.parseInt(cursor.getString(4)));
+                usuario.setNombre(cursor.getString(5));
+                usuario.setTelefono(cursor.getString(6));
+                usuario.setDescripcion(cursor.getString(7));
+            }
+        }
             db.close();
             return usuario;
 
@@ -103,6 +116,25 @@ public class Sql extends SQLiteOpenHelper {
         int intFoto = Integer.parseInt(cursor.getString(0));
         db.close();
         return intFoto;
+    }
+
+    public boolean existeUsuario(String strCorreo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(ConstantesBD.TABLE_NAME_POS, new String[] { ConstantesBD.TABLE_POS_ID,
+                        ConstantesBD.TABLE_POS_EMAIL, ConstantesBD.TABLE_POS_PASSWORD,
+                        ConstantesBD.TABLE_POS_GENDER, ConstantesBD.TABLE_POS_PHOTO,
+                        ConstantesBD.TABLE_POS_NAME, ConstantesBD.TABLE_POS_TEL,
+                        ConstantesBD.TABLE_POS_DESCRPTION},
+                ConstantesBD.TABLE_POS_EMAIL + "=?",
+                new String[] { String.valueOf(strCorreo) }, null, null, null, null);
+        boolean blExiste = false;
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                blExiste = true;
+            }
+        }
+        db.close();
+        return blExiste;
     }
 
 

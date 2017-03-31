@@ -197,17 +197,13 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
 
          /*BASE DE DATOS*/
         Sql bdBase = new Sql(this);
-        String strUsuario = "no";
-        Usuario usuario =  bdBase.obtenerUsuario(strUsuarioA);
-        if (usuario != null){
-            strUsuario = usuario.getCorreo();
-        }
+
 
 
             /**/
 
         //TextView tvDesc = (TextView) findViewById(R.id.ar_tvDesc);
-        if (strUsuarioA.equals(strUsuario)){
+        if (bdBase.existeUsuario(strUsuarioA)){
             /*if (strContraseniaA.equals(strContrasenia)){
 
                 if (strToken.equals("No existe token")){
@@ -220,7 +216,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
             }*/
             return false;
         }
-        else {
+        else{
             //deve ir a inicio
             /*Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("token", strToken);
