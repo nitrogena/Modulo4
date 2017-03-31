@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 public class InformativoActivity extends AppCompatActivity {
 
-    // TextView tvAcercaDe;
-    // TextView tvCreditos;
-    TextView tvTexto;
+    private TextView tvTexto;
+    private String strGenero;
+    private String strUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,27 +21,15 @@ public class InformativoActivity extends AppCompatActivity {
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle parametros = getIntent().getExtras();
         String strTexto = parametros.getString("texto");
-        String strGenero = parametros.getString("genero");
-        String strUsuario = parametros.getString("correo");
+        strGenero = parametros.getString("genero");
+        strUsuario = parametros.getString("correo");
         Log.i("texto", strTexto);
 
-        /*tvAcercaDe = (TextView) findViewById(R.id.tvAcercaDe);
-        tvCreditos = (TextView) findViewById(R.id.tvCreditos);*/
-
         tvTexto = (TextView) findViewById(R.id.tvTexto);
-
-        /*if (strTexto == "acerca"){
-            tvCreditos.setText("");
-            tvAcercaDe.setText(R.string.ai_acercaDe);
-        }
-        if (strTexto == "creditos"){
-            tvCreditos.setText(R.string.ai_Creditos);
-            tvAcercaDe.setText("");
-        }*/
 
         if (strTexto.contentEquals("acerca")){
 
@@ -56,11 +44,15 @@ public class InformativoActivity extends AppCompatActivity {
             tvTexto.setText(getResources().getString(R.string.ai_ayuda));
         }
 
+
+
+    }
+
+    public void regresar(){
         Intent intent = new Intent(InformativoActivity.this, DetalleActivity.class);
         intent.putExtra("correo", strUsuario);
         intent.putExtra("genero", strGenero);
         intent.putExtra("token", "informativo");
-        //startActivity(intent);
-
+        startActivity(intent);
     }
 }

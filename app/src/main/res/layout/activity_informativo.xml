@@ -43,4 +43,18 @@ tools:context="mx.unam.dadm.modulo4.InformativoActivity">
     android:layout_marginLeft="27dp"
     android:layout_marginStart="27dp" />
 
+
+    <Button
+        android:id="@+id/btnRegresar"
+        android:layout_below="@+id/tvDerechos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/aa_layout_marginTop"
+        android:text="@string/aa_btnRegresar"
+        android:layout_weight="1"
+        android:theme="@style/BotonRaised"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:onClick="regresar"/>
+
 </RelativeLayout>
