@@ -29,7 +29,12 @@
         <activity android:name=".AutenticaActivity" />
         <activity android:name=".CreaActivity" />
         <activity android:name=".DetalleActivity" />
-        <activity android:name=".InformativoActivity" />
+        <activity android:name=".InformativoActivity"
+            android:parentActivityName=".DetalleActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DetalleActivity" />
+        </activity>
         <activity android:name=".ModificaActivity"></activity>
     </application>
 

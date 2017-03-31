@@ -20,6 +20,7 @@ public class InformativoActivity extends AppCompatActivity {
         Toolbar actionBar = (Toolbar) findViewById(R.id.actionBar);
         setSupportActionBar(actionBar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle parametros = getIntent().getExtras();
         String strTexto = parametros.getString("texto");
