@@ -61,7 +61,7 @@
     <string name="ai_acercaDe">Aplicación realizada para el Módulo 4. Android Básico. Marzo de 2017. Instructor Javier Mejía Corona.</string>
     <string name="ai_derechos">Hecho en México. Todos los derechos reservados.</string>
     <string name="ai_Creditos">Realizado por: Nidia Irania Orduña Fonseca. Imagenes del sitio: https://es.icons8.com</string>
-    <string name="ai_ayuda">En esta aplicación una persona puede iniciar sesión con un usuario (correo electrónico) y contraseña. Es posible cambiar estos datos además se muestra una imagen.</string>
+    <string name="ai_ayuda">En esta aplicación una persona puede iniciar sesión con un usuario (correo electrónico) y contraseña. Es posible cambiar datos (sólo género y contraseña) además se muestra una imagen.</string>
     <string name="mensaje1_camara">El permiso ya fue otorgado previamente</string>
     <string name="mensaje2_camara">Permiso concedido</string>
     <string name="mensaje3_camara">Sin permisos </string>

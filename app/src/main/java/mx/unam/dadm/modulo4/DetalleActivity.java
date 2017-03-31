@@ -403,8 +403,8 @@ public class DetalleActivity extends AppCompatActivity {
                 }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(DetalleActivity.this, DetalleActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(DetalleActivity.this, DetalleActivity.class);
+                //startActivity(intent);
             }
         }).setCancelable(false).create().show();
     }
