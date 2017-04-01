@@ -346,11 +346,11 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         strGenero = parent.getItemAtPosition(position).toString();
-        int postition1 = parent.getFirstVisiblePosition();
+        //int postition1 = parent.getFirstVisiblePosition();
 
         // Showing selected spinner item
         //Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
-        Toast.makeText(parent.getContext(), "Selected: " + postition1, Toast.LENGTH_LONG).show();
+        //Toast.makeText(parent.getContext(), "Selected: " + postition1, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub

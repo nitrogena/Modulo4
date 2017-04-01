@@ -388,7 +388,7 @@ public class CreaActivity extends AppCompatActivity implements View.OnClickListe
         strGenero = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
+        //Toast.makeText(parent.getContext(), "Selected: " + strGenero, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
