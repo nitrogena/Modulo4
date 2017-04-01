@@ -43,6 +43,10 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     private String strGenero = "no";
     private String strUsuario;
     private Spinner spinner;
+
+    private EditText etNombre;
+    private EditText etTelefono;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,10 +108,14 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
             //SE DEBEN MODIFICAR LOS DATOS DEL USUARIO
             actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
             etContrasenia = (EditText) findViewById(R.id.etContrasenia);
+            etNombre = (EditText) findViewById(R.id.etNombre);
+            etTelefono = (EditText) findViewById(R.id.etTelefono);
 
 
             String strUsuario = actvCorreo.getText().toString();
             String strContrasenia = etContrasenia.getText().toString();
+            String strNombre = etNombre.getText().toString();
+            String strTelefono = etTelefono.getText().toString();
 
             SharedPreferences spAutentica = getSharedPreferences("Autenticacion", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = spAutentica.edit();
@@ -120,8 +128,10 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
             Sql bdBase = new Sql(this);
 
             ContentValues cvValues = new ContentValues();
-            cvValues.put(ConstantesBD.TABLE_POS_PASSWORD,strContrasenia);
+            cvValues.put(ConstantesBD.TABLE_POS_PASSWORD, strContrasenia);
             cvValues.put(ConstantesBD.TABLE_POS_GENDER, strGenero);
+            cvValues.put(ConstantesBD.TABLE_POS_NAME, strNombre);
+            cvValues.put(ConstantesBD.TABLE_POS_TEL, strTelefono);
             bdBase.modificarUsuario(cvValues, strUsuario);
             /**/
 
@@ -154,14 +164,20 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         Usuario usuario =  bdBase.obtenerUsuario(strUsuario);
         String strContrasenia = usuario.getPassword();
         strGenero = usuario.getGenero();
+        String strNombre = usuario.getNombre();
+        String strTelefono = usuario.getTelefono();
 
 
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
         etContrasenia = (EditText) findViewById(R.id.etContrasenia);
         spinner = (Spinner) findViewById(R.id.spinGenero);
+        etNombre = (EditText) findViewById(R.id.etNombre);
+        etTelefono = (EditText) findViewById(R.id.etTelefono);
 
         actvCorreo.setText(strUsuario);
         etContrasenia.setText(strContrasenia);
+        etNombre.setText(strNombre);
+        etTelefono.setText(strTelefono);
         //spinner.setSelection(getIndex(spinner, strGenero));
 
         for(int i=0; i < adapter.getCount(); i++) {
@@ -190,7 +206,8 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
     private void autenticar(View view) {
         actvCorreo = (AutoCompleteTextView) findViewById(R.id.actvCorreo);
         etContrasenia = (EditText) findViewById(R.id.etContrasenia);
-
+        etTelefono = (EditText) findViewById(R.id.etTelefono);
+        etNombre = (EditText) findViewById(R.id.etNombre);
 
         if (isAutentica != null) {
             return;
@@ -199,10 +216,14 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
         // Reset errors.
         actvCorreo.setError(null);
         etContrasenia.setError(null);
+        etNombre.setError(null);
+        etTelefono.setError(null);
 
         // Store values at the time of the login attempt.
         String strCorreo = actvCorreo.getText().toString();
         String strContrasenia = etContrasenia.getText().toString();
+        String strNombre = etNombre.getText().toString();
+        String strTelefono = etTelefono.getText().toString();
 
         boolean blBandera = false;
         View focusView = null;
@@ -228,7 +249,16 @@ public class ModificaActivity extends AppCompatActivity implements View.OnClickL
             focusView = actvCorreo;
             blBandera = true;
         }
-
+        if (TextUtils.isEmpty(strNombre)){
+            etNombre.setError(getString(R.string.aa_msgErrorRequerido));
+            focusView = etNombre;
+            blBandera = true;
+        }
+        if (TextUtils.isEmpty(strTelefono)){
+            etTelefono.setError(getString(R.string.aa_msgErrorRequerido));
+            focusView = etTelefono;
+            blBandera = true;
+        }
         if (blBandera) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.

@@ -38,6 +38,7 @@ import java.util.Random;
 
 import mx.unam.dadm.modulo4.basedatos.ConstantesBD;
 import mx.unam.dadm.modulo4.basedatos.Sql;
+import mx.unam.dadm.modulo4.datos.Usuario;
 
 
 public class DetalleActivity extends AppCompatActivity {
@@ -88,6 +89,13 @@ public class DetalleActivity extends AppCompatActivity {
         strUsuario = parametros.getString("correo");
         String strAccion = parametros.getString("token");
 
+        Sql bdBase = new Sql(this);
+        Usuario usuario =  bdBase.obtenerUsuario(strUsuario);
+        //String strContrasenia = usuario.getPassword();
+        //strGenero = usuario.getGenero();
+        String strNombre = usuario.getNombre();
+        String strTelefono = usuario.getTelefono();
+
 
         //int foto = parametros.getInt("foto");
 
@@ -107,17 +115,19 @@ public class DetalleActivity extends AppCompatActivity {
         }
         tvCorreo.setText(strUsuario);
         tvGenero.setText(strGenero);
+        tvNombre.setText(strNombre);
+        tvTelefono.setText(strTelefono);
 
        /*BASE DE DATOS*/
-        Sql bdBase = new Sql(this);
+        Sql bdBase2 = new Sql(this);
        if (strAccion.equals("registro")){
            resource = imagenesID[random.nextInt(imagenesID.length)];
 
            ContentValues cvValues = new ContentValues();
            cvValues.put(ConstantesBD.TABLE_POS_PHOTO, resource);
-           bdBase.modificarUsuario(cvValues, strUsuario);
+           bdBase2.modificarUsuario(cvValues, strUsuario);
        }else{
-           resource = bdBase.obtenerFoto(strUsuario);
+           resource = bdBase2.obtenerFoto(strUsuario);
        }
         ivFoto.setImageResource(resource);
         /**/
