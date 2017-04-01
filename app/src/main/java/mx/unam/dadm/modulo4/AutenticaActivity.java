@@ -148,7 +148,11 @@ public class AutenticaActivity extends AppCompatActivity implements View.OnClick
             focusView = etContrasenia;
             blBandera = true;
         }
-
+        if (TextUtils.isEmpty(strContrasenia)){
+            etContrasenia.setError(getString(R.string.aa_msgErrorRequerido));
+            focusView = etContrasenia;
+            blBandera = true;
+        }
         // Check for a valid email address.
         if (TextUtils.isEmpty(strCorreo)) {
             actvCorreo.setError(getString(R.string.aa_msgErrorRequerido));
