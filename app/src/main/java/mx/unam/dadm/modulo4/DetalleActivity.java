@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -162,6 +163,7 @@ public class DetalleActivity extends AppCompatActivity {
 
     }
 
+    @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_CALL: {
@@ -286,11 +288,15 @@ public class DetalleActivity extends AppCompatActivity {
                                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         //Creamos una carpeta en la memeria del terminal
                         File imagesFolder = new File(
-                                Environment.getExternalStorageDirectory(), "PrototEmplea");
+                                Environment.getExternalStorageDirectory(), "Modulo4");
                         imagesFolder.mkdirs();
                         //añadimos el nombre de la imagen
-                        File image = new File(imagesFolder, "fotoOrg.jpg");
-                        Uri uriSavedImage = Uri.fromFile(image);
+                        File image = new File(imagesFolder, "fotoUsr.jpg");
+
+                        //Uri uriSavedImage = Uri.fromFile(image);
+
+                        Uri uriSavedImage = FileProvider.getUriForFile(getBaseContext(), getBaseContext().getApplicationContext().getPackageName() + ".provider", image);
+
                         //Le decimos al Intent que queremos grabar la imagen
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
                         //Lanzamos la aplicacion de la camara con retorno (forResult)
@@ -320,7 +326,7 @@ public class DetalleActivity extends AppCompatActivity {
             //almacenada en la memoria
             Bitmap bMap = BitmapFactory.decodeFile(
                     Environment.getExternalStorageDirectory()+
-                            "/PrototEmplea/"+"fotoOrg.jpg");
+                            "/Modulo4/"+"fotoUsr.jpg");
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
             ivFoto.setImageBitmap(bMap);
